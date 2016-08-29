@@ -1,3 +1,5 @@
+# Introduction to BEAST2
+
 This is a simple introductory tutorial to help you get started with using BEAST2 and its accomplices.
 
 ## Background
