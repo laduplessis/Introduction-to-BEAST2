@@ -1,10 +1,3 @@
----
-layout: post
-title: "Introduction to BEAST"
-author: "Jūlija Pečerska, Veronika Bošková"
-date: 2016-08-25
----
-
 This is a simple introductory tutorial to help you get started with using BEAST2 and its accomplices.
 
 ## Background
