@@ -1,4 +1,3 @@
-# Introduction to BEAST2
 
 This is a simple introductory tutorial to help you get started with using BEAST2 and its accomplices.
 
@@ -14,12 +13,12 @@ Therefore, in this simple tutorial you will get acquainted with the basic workfl
 
 ## Programs used in this Exercise 
 
-### BEAST2 -- Bayesian Evolutionary Analysis Sampling Trees 2
+### BEAST2 - Bayesian Evolutionary Analysis Sampling Trees 2
 
 BEAST2 is a free software package for Bayesian evolutionary analysis of molecular sequences using MCMC and strictly oriented toward inference using rooted, time-measured phylogenetic trees. This tutorial uses the BEAST2 version 2.4.2.
 
 
-### BEAUti -- Bayesian Evolutionary Analysis Utility
+### BEAUti - Bayesian Evolutionary Analysis Utility
 
 BEAUti is a graphical user interface tool for generating BEAST2 XML configuration files.
 
@@ -85,15 +84,12 @@ To give BEAST2 access to the data, one has to add the alignment to the configura
 Once you have done that, the data should appear in the BEAUti window which should look as shown in [Figure 1](#fig:data).
 
 
-![]({{ site.github.url }}/images/tutorials/Introduction_to_BEAST/data.png) \\
-_Figure 1: Data imported into BEAUti._  
-
-[fig:data1]: fig:data1
-
+![]({{ site.baseurl }}/images/tutorials/Introduction_to_BEAST/data.png) \\
+_Data imported into BEAUti._  
 
 <figure>
-	<img src="{{ site.github.url }}/images/tutorials/Introduction_to_BEAST/data.png" alt="">
-	<figcaption>Figure 1: Data imported into BEAUti.</figcaption>
+	<img src="{{ site.baseurl }}/images/tutorials/Introduction_to_BEAST/data.png" alt="">
+	<figcaption>Data imported into BEAUti.</figcaption>
 	<a id="fig:data"/>
 </figure>
 
