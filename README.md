@@ -9,7 +9,7 @@ Before diving into performing complex analyses with the BEAST2 one needs to unde
 Therefore, in this simple tutorial you will get acquainted with the basic workflow of BEAST2 and the software most commonly used to interpret the results of the analyses. Bear in mind that this tutorial is designed just to help you get started using BEAST2. We will not discuss all the choices and concepts in detail, as they will be sequentially discussed in further classes and tutorials.
 
 
----
+----
 
 
 ## Programs used in this Exercise 
@@ -50,7 +50,7 @@ DensiTree is provided as a part of the BEAST2 tool package so you do not need to
 
 <br>
 
----
+----
 
 <br>
 
