@@ -8,7 +8,7 @@ Therefore, in this simple tutorial you will get acquainted with the basic workfl
 ----
 
 
-## Programs used in this Exercise 
+# Programs used in this Exercise 
 
 ### BEAST2 - Bayesian Evolutionary Analysis Sampling Trees 2
 
@@ -482,11 +482,13 @@ Now, select the `Help > View clades` in DensiTree menu. You should see a window 
 # Useful Links
 
 - [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html)
-- BEAST 2 website and documentation: [](http://www.beast2.org/)
-- BEAST 1 website and documentation: [](http://beast.bio.ed.ac.uk)
-- Join the BEAST user discussion: [](http://groups.google.com/group/beast-users) 
+- BEAST 2 website and documentation: [http://www.beast2.org/](http://www.beast2.org/)
+- BEAST 1 website and documentation: [http://beast.bio.ed.ac.uk](http://beast.bio.ed.ac.uk)
+- Join the BEAST user discussion: [http://groups.google.com/group/beast-users](http://groups.google.com/group/beast-users) 
 
-<a href="http://creativecommons.org/licenses/by/4.0/"><img src="figures/ccby.pdf"></a>This tutorial was written by Jūlija Pečerska and Veronika Bošková for the [Taming the BEAST Workshop])https://www.bsse.ethz.ch/cevo/taming-the-beast.html)[Taming the BEAST Workshop] on applied phylogenetics and molecular evolution and is licensed under a [Creative Commons Attribution 4.0 International License]](http://creativecommons.org/licenses/by/4.0/). The content is based on the [Divergence Dating Tutorial with BEAST 2.0](https://github.com/CompEvol/beast2/blob/master/doc/tutorials/DivergenceDating/DivergenceDatingTutorialv2.0.3.pdf?raw=true) by Drummond, Rambaut, and Bouckaert.
+----
+
+This tutorial was written by Jūlija Pečerska and Veronika Bošková for the [Taming the BEAST Workshop])(https://www.bsse.ethz.ch/cevo/taming-the-beast.html) on applied phylogenetics and molecular evolution and is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/). The content is based on the [Divergence Dating Tutorial with BEAST 2.0](https://github.com/CompEvol/beast2/blob/master/doc/tutorials/DivergenceDating/DivergenceDatingTutorialv2.0.3.pdf?raw=true) by Drummond, Rambaut, and Bouckaert.
 
 
 
