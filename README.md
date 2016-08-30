@@ -103,9 +103,9 @@ You will see that the `Clock Model` and the `Tree` columns in the table both cha
 
 
 <figure>
+	<a id="fig:link"></a>
 	<img src="figures/link.png">
 	<figcaption>Figure 2: Linked models.</figcaption>
-	<a id="fig:link"></a>
 </figure>
 
 
@@ -126,7 +126,7 @@ Navigate to the `Partitions` tab again, select all the partitions and temporaril
 >
 > Return to the `Site Model` tab.
 
-First, check the `estimate` checkbox at the `Substitution Rate`, as we want to estimate relative substitution rates for each partition. Next, set the `Gamma Category Count  to 4 and check the `estimate` box for the `Shape` parameter. This will allow rate variation between sites in each partition to be modelled. Then select `HKY` in the `Subst Model` drop-down and select `Empirical` from the `Frequencies` drop-down. This will fix the frequencies to the proportions observed in the data (for each partition individually, once we unlink the site models again). This approach means that we can get a good fit to the data without explicitly estimating these parameters. The setup should look now as shown in [Figure 3](fig:subst).
+First, check the `estimate` checkbox at the `Substitution Rate`, as we want to estimate relative substitution rates for each partition. Next, set the `Gamma Category Count  to 4 and check the `estimate` box for the `Shape` parameter. This will allow rate variation between sites in each partition to be modelled. Then select `HKY` in the `Subst Model` drop-down and select `Empirical` from the `Frequencies` drop-down. This will fix the frequencies to the proportions observed in the data (for each partition individually, once we unlink the site models again). This approach means that we can get a good fit to the data without explicitly estimating these parameters. The setup should look now as shown in [Figure 3](#fig:subst).
 
 > Check the `estimate` checkbox at the `Substitution Rate`.
 >
@@ -144,10 +144,10 @@ Now return to the `Partitions` panel and unlink the site models such that each p
 > Go to the `Partitions` tab again, select all partitions and click the `Unlink Site Models` button.
 
 
-<figure>
+<figure>	
+	<a id="fig:subst"></a>
 	<img src="figures/substitution.png">
 	<figcaption>Figure 3: Substitution model setup.</figcaption>
-	<a id="fig:subst"></a>
 </figure>
 
 
@@ -176,15 +176,15 @@ We will set the prior for `birthRateY.t:tree` to a `Gamma` distribution with an 
 > Set the `Alpha` (shape) parameter to 0.001 and the `Beta` (scale) parameter to 1000.
 
 
-We will leave the rest of the priors on their default values, which should look as shown in [Figure 4](fig:priors).
+We will leave the rest of the priors on their default values, which should look as shown in [Figure 4](#fig:priors).
 
 Please note that in general using default priors is highly frowned upon as priors are meant to convey your prior knowledge of the parameters. It is important to know what exactly do the priors tell MCMC and whether this fits your particular situation. In our case the default priors are suitable for this particular analysis, however for further, more complex analyses, we will require a clear idea of what do the priors mean. Getting this understanding is hard so we will leave it to the later Taming the Beast classes and tutorials in order to keep the introduction as simple as possible.
 
 
 <figure>
-	<img src="figures/figures/priors.png">
-	<figcaption>Figure 4: Prior setup}.</figcaption>
 	<a id="fig:priors"></a>
+	<img src="figures/priors.png">
+	<figcaption>Figure 4: Prior setup.</figcaption>
 </figure>
 
 
@@ -196,27 +196,27 @@ Since in the Bayesian analysis such information should be encoded in the form of
 
 > Click the small `+` button below all the priors.
 
-Name the taxa set by filling in the taxon set label entry. Call it human-chimp (it will contain the taxa for Homo sapiens and Pan). In next list below you will see the available taxa. Select and add the Homo sapiens and Pan taxa to the set (see [Figure 5](fig:taxa)). After you click `OK` and the newly defined taxa set will be added to the prior list.
+Name the taxa set by filling in the taxon set label entry. Call it human-chimp (it will contain the taxa for Homo sapiens and Pan). In next list below you will see the available taxa. Select and add the Homo sapiens and Pan taxa to the set (see [Figure 5](#fig:taxa)). After you click `OK` and the newly defined taxa set will be added to the prior list.
 
 > Set the `Taxon set label` to `human-chimp`.
 >
-> Locate `Homo\_sapiens` taxon in the left hand side list and click the `>>` button to add it to the taxa set for `human-chimp`.
+> Locate `Homo_sapiens` taxon in the left hand side list and click the `>>` button to add it to the taxa set for `human-chimp`.
 >
 > Locate `Pan` taxon in the left hand side list and click the `>>` button to add it to the taxa set for `human-chimp`.
 > 
 > Click the `OK` button to add the newly defined taxa set to the prior list.
 
 <figure>
-	<img src="figures/figures/taxa.png">
-	<figcaption>Figure 5: Calibration node taxa set definition}.</figcaption>
 	<a id="fig:taxa"></a>
+	<img src="figures/taxa.png">
+	<figcaption>Figure 5: Calibration node taxa set definition.</figcaption>
 </figure>
 
 The new node we have added is a calibrated node to be used in conjunction with the Calibrated Yule prior. In order for that to work we need to enforce monophyly, so select the checkbox marked `Monophyletic`. This will constrain the tree topology so that the human-chimp grouping is kept monophyletic during the course of the MCMC analysis.
 
 > Check the `monophyletic` checkbox next to the `human-chimp.prior`.
 
-We now need to specify a prior distribution on the calibration node based on our prior fossil knowledge in order to calibrate our tree. Select the `Normal` distribution for the newly added `human-chimp.prior`. Expand the prior options and  specify a normal distribution centered at 6 million years with a standard deviation of 0.5 million years. This will give a central 95\% range of about 5-7 million years. This roughly corresponds to the current consensus estimate of the date of the most recent common ancestor of humans and chimpanzees.
+We now need to specify a prior distribution on the calibration node based on our prior fossil knowledge in order to calibrate our tree. Select the `Normal` distribution for the newly added `human-chimp.prior`. Expand the prior options and  specify a normal distribution centered at 6 million years with a standard deviation of 0.5 million years. This will give a central 95% range of about 5-7 million years. This roughly corresponds to the current consensus estimate of the date of the most recent common ancestor of humans and chimpanzees.
 
 > Select the `Normal` distribution from the drop down menu to the right of the newly added `human-chimp.prior`.
 >
@@ -227,14 +227,60 @@ We now need to specify a prior distribution on the calibration node based on our
 > Set the `Sigma` of the distribution to 0.5.
 
 
-The final setup of the calibration node should look as shown in [Figure 6](fig:calibration).
+The final setup of the calibration node should look as shown in [Figure 6](#fig:calibration).
 
 <figure>
-	<img src="figures/figures/calibration.png">
-	<figcaption>Figure 6: Calibration node  prior setup}.</figcaption>
 	<a id="fig:calibration"></a>
+	<img src="figures/calibration.png">
+	<figcaption>Figure 6: Calibration node prior setup.</figcaption>
 </figure>
 
+
+### Setting the MCMC options
+
+Finally, the `MCMC` tab allows to control the length of the MCMC run and frequency of stored samples. It also allows one to change the output file names.
+
+> Go to the `MCMC` tab.
+
+The `Chain Length` parameter specifies the number of steps the MCMC chain will make before finishing. This number depends on the size of the dataset, the complexity of the model and the precision of the answer required. The default value of 10'000'000 is arbitrary and should be adjusted accordingly. For this small dataset we initially set the chain length to 1'000'000 such that this analysis will take only a few minutes on most modern computers (rather than hours). For now we leave the `Store Every` and `Pre Burnin` fields at their default values.
+
+> Set the `Chain Length` to 1'000'000.
+
+Below these general settings you will find the logging settings. Each particular logging option can be viewed in detail by clicking the arrow to the left of it. You can control the names of the log files and how often should the values be stored in each of the files.
+
+Start by expanding the `tracelog` options. This is the log file you will use later to analyse and summarise the results of the run. The `Log Every` parameter for the log file should be set relative to the total length of the chain. Sampling too often will result in very large files with little extra benefit in terms of the accuracy of the analysis. Sampling too rarely will mean that the log file will not record sufficient information about the distributions of the parameters. We normally want to aim to store no more than 10'000 samples so this should be set to no less than chain length/10'000. For this analysis we will make BEAST2 write to log file every 200 samples.
+
+> Expand the `tracelog` options.
+> 
+> Set the `Log Every` parameter to 200.
+
+Then, expand the `screenlog` options. The screen output is simply for monitoring the program's progress. Since it is not so important, especially if you run your analysis on a remote computer or a computer cluster, the `Log Every` can be set to any value. Although if set too small, the sheer quantity of information being displayed on the screen will actually slow the program down. For this analysis we will make BEAST2 log to screen every 1'000 samples, which is the default setting.
+
+> Expand the `screenlog` options.
+>
+> Leave the `Log Every` parameter at the default value of 1'000.
+
+Finally, we can also change the tree logging frequency by expanding the `treelog.t:tree`. Set the sampling frequency to 1'000 and rename the tree log file to `primate-mtDNA.trees`.
+
+> Expand the `treelog.t:tree` options.
+>
+> Set the `File Name` to `primate-mtDNA.trees`.
+>
+> Leave the `Log Every` parameter at the default value of 1'000.
+
+The final setup should look as in [Figure 7](#fig:logs).
+
+<figure>
+	<a id="fig:logs"></a>
+	<img src="figures/logs.png">
+	<figcaption>Figure 7: Logging options.</figcaption>
+</figure>
+
+### Generating the XML file
+
+We are now ready to create the BEAST2 XML file. To do this, select `File > Save`, and save the file with an appropriate name (we usually end the filename with `.xml`, i.e. `Primates.xml`). This is the final configuration file BEAST2 can use to execute the analysis.
+
+> Save the XML file under the name `Primates.xml` using `File > Save`.
 
 
 
