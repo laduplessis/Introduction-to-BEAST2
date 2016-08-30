@@ -74,7 +74,7 @@ To give BEAST2 access to the data, one has to add the alignment to the configura
 > Import the alignment into BEAUti by either dragging and dropping the `*.nex` file into the BEAUti window open on the Partitions tab, or use `File > Import Alignment` and then locate and click the alignment file.
 
 
-Once you have done that, the data should appear in the BEAUti window which should look as shown in the [#fig:data](figure) below.
+Once you have done that, the data should appear in the BEAUti window which should look as shown in the [figure](#fig:data) below.
 
 <figure>
 	<img src="figures/data.png" alt="">
