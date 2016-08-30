@@ -44,11 +44,7 @@ DensiTree is provided as a part of the BEAST2 tool package so you do not need to
 
 [FigTree](http://tree.bio.ed.ac.uk/software/figtree) is a program for viewing trees and producing publication-quality figures. It can interpret the node-annotations created on the summary trees by TreeAnnotator, allowing the user to display node-based statistics (e.g. posterior probabilities).
 
-<br>
-
 ----
-
-<br>
 
 ## Practical: Running a simple analysis with BEAST2
 
@@ -78,12 +74,12 @@ To give BEAST2 access to the data, one has to add the alignment to the configura
 > Import the alignment into BEAUti by either dragging and dropping the `*.nex` file into the BEAUti window open on the Partitions tab, or use `File > Import Alignment` and then locate and click the alignment file.
 
 
-Once you have done that, the data should appear in the BEAUti window which should look as shown in the [:fig-data](figure) below.
+Once you have done that, the data should appear in the BEAUti window which should look as shown in the [#fig:data](figure) below.
 
 <figure>
 	<img src="figures/data.png" alt="">
 	<figcaption>Data imported into BEAUti.</figcaption>
-	<a id="fig-data"/></a>
+	<a id="fig:data"/></a>
 </figure>
 
 
