@@ -81,7 +81,7 @@ To give BEAST2 access to the data, one has to add the alignment to the configura
 Once you have done that, the data should appear in the BEAUti window which should look as shown in [Figure 1](#fig:data).
 
 
-![](figures/data.png) \\
+![](figures/data.png)
 
 |_Data imported into BEAUti._|
 |:--:|
