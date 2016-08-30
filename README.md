@@ -97,7 +97,7 @@ To make sure that the partitions share the same evolutionary history we need to 
 
 You will see that the `Clock Model` and the `Tree` columns in the table both changed to say `noncoding`. Now we will rename both models such that the following options and generated log files more easy to read. The resulting setup should look as shown in [Figure 2](#fig:link).
 
-> Click on the first drop-down menu in the \texttt{Clock Model} column and rename the shared clock model to `clock`.
+> Click on the first drop-down menu in the `Clock Model` column and rename the shared clock model to `clock`.
 >
 > Likewise rename the shared tree to `tree`.
 
@@ -107,6 +107,134 @@ You will see that the `Clock Model` and the `Tree` columns in the table both cha
 	<figcaption>Figure 2: Linked models.</figcaption>
 	<a id="fig:link"></a>
 </figure>
+
+
+
+### Setting the substitution model
+
+Next we need to set up the substitution model in the `Site Model` tab.
+
+> Select the `Site Model` tab.
+
+The options available in this panel depend on whether the alignment data is in nucleotides, aminoacids, binary data or general data. The settings available after loading the alignment will contain the default values which we normally want to modify.
+
+The panel on the left shows each part of the alignment. Remember that we did not link the substitution models in the previous step for the different partition, so each partition is allowed to evolve under different substitution model, i.e. we assume that different positions in the alignment accumulate substitutions differently. We will need to set the site substitution model separately for each part of the alignment as these models are unlinked. However, we think that all partitions evolve according to the same model (although with different parameters) so we can temporarily link the site models in the `Partitions` panel so that we can change the model of all partitions simultaneously. 
+
+Navigate to the `Partitions` tab again, select all the partitions and temporarily link the site models. Then go back to the `Site Model` tab. The panel on the left is now gone as we are setting one model for all of the partitions.
+
+> Go to the `Partitions` tab, select all partitions and click the `Link Site Models` button.
+>
+> Return to the `Site Model` tab.
+
+First, check the `estimate` checkbox at the `Substitution Rate`, as we want to estimate relative substitution rates for each partition. Next, set the `Gamma Category Count  to 4 and check the `estimate` box for the `Shape` parameter. This will allow rate variation between sites in each partition to be modelled. Then select `HKY` in the `Subst Model` drop-down and select `Empirical` from the `Frequencies` drop-down. This will fix the frequencies to the proportions observed in the data (for each partition individually, once we unlink the site models again). This approach means that we can get a good fit to the data without explicitly estimating these parameters. The setup should look now as shown in [Figure 3](fig:subst).
+
+> Check the `estimate` checkbox at the `Substitution Rate`.
+>
+> Set the `Gamma Category Count` to 4.
+> 
+> Check the `estimate` box for the `Shape` parameter.
+>
+> Select `HKY` in the `Subst Model` drop-down.
+> 
+> Select `Empirical` from the `Frequencies` drop-down.
+
+
+Now return to the `Partitions` panel and unlink the site models such that each partition has its own named site model with independent substitution model parameters and relative rate. You can make sure this is the case by returning to the `Site Model` tab and clicking through the different partitions. 
+
+> Go to the `Partitions` tab again, select all partitions and click the `Unlink Site Models` button.
+
+
+<figure>
+	<img src="figures/substitution.png">
+	<figcaption>Figure 3: Substitution model setup.</figcaption>
+	<a id="fig:subst"></a>
+</figure>
+
+
+### Setting the clock model
+
+Next, select the `Clock Models` tab at the top of the main window. This is where we set up the molecular clock model. For this exercise we are going to leave the selection at the default value of a strict molecular clock, because this data is very clock-like and does not need rate variation among branches to be included in the model.
+
+> Go to the \texttt{Clock Models} tab and view the setup.
+
+
+### Setting priors
+
+The `Priors` tab allows priors to be specified for each parameter in the model. The model selections made in the site model and clock model tabs, result in the inclusion of various parameters in the model. For each of these parameters a prior distribution needs to be specified.
+
+Here we specify that we wish to use the Calibrated Yule model as the tree prior. This is a simple model of speciation that is generally more appropriate when considering sequences from different species.
+
+
+> Go to the `Priors` tab and select the `Calibrated Yule Model` in the `Tree.t:tree` dropdown menu.
+
+We will set the prior for `birthRateY.t:tree` to a `Gamma` distribution with an `Alpha` of 0.001 and `Beta` of 1000.
+
+> For `birthRateY.t:tree` select `Gamma` from the dropdown menu
+> 
+> Expand the options for `birthRateY.t:tree` using the arrow button on the right.
+>
+> Set the `Alpha` (shape) parameter to 0.001 and the `Beta` (scale) parameter to 1000.
+
+
+We will leave the rest of the priors on their default values, which should look as shown in [Figure 4](fig:priors).
+
+Please note that in general using default priors is highly frowned upon as priors are meant to convey your prior knowledge of the parameters. It is important to know what exactly do the priors tell MCMC and whether this fits your particular situation. In our case the default priors are suitable for this particular analysis, however for further, more complex analyses, we will require a clear idea of what do the priors mean. Getting this understanding is hard so we will leave it to the later Taming the Beast classes and tutorials in order to keep the introduction as simple as possible.
+
+
+<figure>
+	<img src="figures/figures/priors.png">
+	<figcaption>Figure 4: Prior setup}.</figcaption>
+	<a id="fig:priors"></a>
+</figure>
+
+
+### Adding a calibration node
+
+Since all of the samples come from a single time point, there is no information on the actual height of the phylogenetic tree in time units. Tree height and substitution rate will not be distinguishable and BEAST2 will only be able to estimate their product. To give BEAST2 the possibility to separate these two parameters we need to input additional information that will help calibrate the tree in time.
+
+Since in the Bayesian analysis such information should be encoded in the form of a prior distribution, we will have to add a new prior that is not available yet. To define an extra prior, press the small `+` button below list of priors. You will see a dialogue that allows you to define a subset of the taxa in the phylogenetic tree. Once you have created a taxa set you will be able to add calibration information for its most recent common ancestor (MRCA) later on.
+
+> Click the small `+` button below all the priors.
+
+Name the taxa set by filling in the taxon set label entry. Call it human-chimp (it will contain the taxa for Homo sapiens and Pan). In next list below you will see the available taxa. Select and add the Homo sapiens and Pan taxa to the set (see [Figure 5](fig:taxa)). After you click `OK` and the newly defined taxa set will be added to the prior list.
+
+> Set the `Taxon set label` to `human-chimp`.
+>
+> Locate `Homo\_sapiens` taxon in the left hand side list and click the `>>` button to add it to the taxa set for `human-chimp`.
+>
+> Locate `Pan` taxon in the left hand side list and click the `>>` button to add it to the taxa set for `human-chimp`.
+> 
+> Click the `OK` button to add the newly defined taxa set to the prior list.
+
+<figure>
+	<img src="figures/figures/taxa.png">
+	<figcaption>Figure 5: Calibration node taxa set definition}.</figcaption>
+	<a id="fig:taxa"></a>
+</figure>
+
+The new node we have added is a calibrated node to be used in conjunction with the Calibrated Yule prior. In order for that to work we need to enforce monophyly, so select the checkbox marked `Monophyletic`. This will constrain the tree topology so that the human-chimp grouping is kept monophyletic during the course of the MCMC analysis.
+
+> Check the `monophyletic` checkbox next to the `human-chimp.prior`.
+
+We now need to specify a prior distribution on the calibration node based on our prior fossil knowledge in order to calibrate our tree. Select the `Normal` distribution for the newly added `human-chimp.prior`. Expand the prior options and  specify a normal distribution centered at 6 million years with a standard deviation of 0.5 million years. This will give a central 95\% range of about 5-7 million years. This roughly corresponds to the current consensus estimate of the date of the most recent common ancestor of humans and chimpanzees.
+
+> Select the `Normal` distribution from the drop down menu to the right of the newly added `human-chimp.prior`.
+>
+> Expand the distribution options using the arrow button on the left.
+>
+> Set the `Mean` of the distribution to 6.
+>
+> Set the `Sigma` of the distribution to 0.5.
+
+
+The final setup of the calibration node should look as shown in [Figure 6](fig:calibration).
+
+<figure>
+	<img src="figures/figures/calibration.png">
+	<figcaption>Figure 6: Calibration node  prior setup}.</figcaption>
+	<a id="fig:calibration"></a>
+</figure>
+
 
 
 
