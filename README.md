@@ -74,13 +74,41 @@ To give BEAST2 access to the data, one has to add the alignment to the configura
 > Import the alignment into BEAUti by either dragging and dropping the `*.nex` file into the BEAUti window open on the Partitions tab, or use `File > Import Alignment` and then locate and click the alignment file.
 
 
-Once you have done that, the data should appear in the BEAUti window which should look as shown in the [figure](#fig:data) below.
+Once you have done that, the data should appear in the BEAUti window which should look as shown in [Figure 1](#fig:data).
 
 <figure>
+	<a id="fig:data"/>
 	<img src="figures/data.png" alt="">
-	<figcaption>Data imported into BEAUti.</figcaption>
-	<a id="fig:data"/></a>
+	<figcaption>Figure 1: Data imported into BEAUti.</figcaption>
 </figure>
+
+
+### Setting up shared models
+
+One way to account for variation in substitution rates between different sites is to include gamma rate categories. In this scenario, one defines a Gamma distribution and discretises it in the desired number of bins (4-6 usually). The mean of each bin is then acting as a multiplier for the overall substitution rate. The transitions probabilities are then calculated for each scaled substitution rate. P(data | tree, substitution model) can then be calculated under each gamma rate category and the results are summed up to average over all possible rates. This is a handy approach if one suspects that some sites can be mutating faster than others but the precise position of the sites in the alignment is unknown or random.
+
+Another way to account for site rate heterogeneity is to split the alignment into explicit partitions. This is especially relevant, when one knows exactly which positions in the alignment have different substitution rates from the rest of the sites. In our example, we split the alignment into coding and non-coding parts, and split the coding part further into 1st, 2nd and 3rd codon positions. We can now specify a separate substitution model for each partition. 
+
+Since all of the sequences in this data set are from the mitochondrial genome (which is not believed to undergo recombination in birds and mammals) they all share the same ancestry. By default BEAST2 would recover a time-tree for each partition, so we need to make sure that it uses all data to recover a single shared tree. For the sake of simplicity, we will also assume the partitions have the same evolutionary rate for each branch, and hence share the clock model as well.
+
+To make sure that the partitions share the same evolutionary history we need to link the clock model and the tree in BEAUti, which can be done by selecting all four partitions and clicking the `Link Trees` and `Link Clock Models` buttons.
+
+> Select all four data partitions the `Partitions` panel and click the `Link Trees` and `Link Clock Models` buttons.
+
+You will see that the `Clock Model` and the `Tree` columns in the table both changed to say `noncoding`. Now we will rename both models such that the following options and generated log files more easy to read. The resulting setup should look as shown in [Figure 2](#fig:link).
+
+> Click on the first drop-down menu in the \texttt{Clock Model} column and rename the shared clock model to `clock`.
+>
+> Likewise rename the shared tree to `tree`.
+
+
+<figure>
+	<img src="figures/link.png">
+	<figcaption>Figure 2: Linked models.</figcaption>
+	<a id="fig:link"/>
+</figure>
+
+
 
 
 
