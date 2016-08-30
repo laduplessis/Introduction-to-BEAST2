@@ -1,4 +1,4 @@
-## Background
+# Background
 
 Before diving into performing complex analyses with the BEAST2 one needs to understand the basic workflow and concepts. While BEAST2 tries to be as user-friendly as possible, the amount of possibilities can be overwhelming.
 
@@ -46,7 +46,7 @@ DensiTree is provided as a part of the BEAST2 tool package so you do not need to
 
 ----
 
-## Practical: Running a simple analysis with BEAST2
+# Practical: Running a simple analysis with BEAST2
 
 This tutorial will guide you through the analysis of an alignment of sequences sampled from twelve primate species. The aim of this tutorial is to co-estimate the following:
 
@@ -56,7 +56,7 @@ This tutorial will guide you through the analysis of an alignment of sequences s
 More generally, this tutorial aims to introduce new users to a basic workflow and point out the steps towards performing a full analysis of sequencing data within Bayesian framework.
 
 
-### Creating analysis configuration
+## Creating analysis configuration
 
 To run analyses with BEAST, one needs to prepare a configuration file in XML format that contains all the input information and setup of initial values and priors. Even though it is possible to create such files by hand from scratch, it can be complicated and not exactly straightforward. BEAUti is designed to aid you in producing a valid setup file for BEAST. If necessary that file can later be edited by hand, but it is recommended to use BEAUti for generating the files at least for the initial round of analysis.
 
@@ -155,7 +155,7 @@ Now return to the `Partitions` panel and unlink the site models such that each p
 
 Next, select the `Clock Models` tab at the top of the main window. This is where we set up the molecular clock model. For this exercise we are going to leave the selection at the default value of a strict molecular clock, because this data is very clock-like and does not need rate variation among branches to be included in the model.
 
-> Go to the \texttt{Clock Models} tab and view the setup.
+> Go to the `Clock Models` tab and view the setup.
 
 
 ### Setting priors
@@ -303,15 +303,15 @@ Now you can run the analysis by pressing the `Run` button at the bottom of the w
 The window will remain open when BEAST2 will finished. When you try to close it, you may see BEAST2 asking the question: "Do you wish to save?". Note that your log and trees files are always saved, no matter what answer you choose for this question. Thus, the question is only restricted to saving or not of the BEAST2 `screenlog` output. In order to save this output, click `Yes` and select the location on your computer, and the filename under which you wish to save this output. However, for now, it is safe to click `No` and not save the `screenlog` output.
 
 <figure>
+	<a id="fig:beast"></a>
 	<img src="figures/beast.png">
 	<figcaption>Figure 8: BEAST2 setup for the analysis.</figcaption>
-	<a id="fig:beast"></a>
 </figure>
 
 <figure>
+	<a id="fig:beast_out"></a>
 	<img src="figures/beast_out.png">
 	<figcaption>Figure 9: BEAST2 output for the analysis.</figcaption>
-	<a id="fig:beast_out"></a>
 </figure>
 
 
@@ -344,16 +344,149 @@ You can also compare estimates of different parameters in Tracer. Once a trace f
 
 
 <figure>
+	<a id="fig:tracer_bad"></a>
 	<img src="figures/tracer_bad.png">
 	<figcaption>Figure 10: Tracer showing a summary of the BEAST2 run of primate data with MCMC chain length of 1'000'000.</figcaption>
-	<a id="fig:tracer_bad"></a>
 </figure>
 
 <figure>
+	<a id="fig:tracer_comparison"></a>
 	<img src="figures/tracer_comparison.png">
 	<figcaption>Figure 11: Tracer showing the four marginal probability distributions of the mutation rates in each partition of the alignment.</figcaption>
-	<a id="fig:tracer_comparison"></a>
 </figure>
+
+
+
+### Analysing the posterior estimate quality
+
+Two very important summary statistics that we should pay attention to are the Auto-Correlation Time (ACT) and the Effective Sample Size (ESS). ACT is the average number of states in the MCMC chain that two samples have to be separated by for them to be uncorrelated, i.e. for them to be independent samples from the posterior. The ACT is estimated from the samples in the trace (excluding the burn-in). The ESS is the number of independent samples that the trace is equivalent to. This is calculated as the chain length (excluding the burn-in) divided by the ACT.
+
+The ESS is in general regarded as a quality-measure of the resulting sample sequence. It is unclear how to determine exactly how large should the ESS be for the analysis to be trustworthy so an empirical number was defined. In general, an ESS of 200 will be considered enough to make the analysis useful. As you can see in [Figure 10](#fig:tracer_bad), ESS values below 100 are coloured in red, which means that we should not trust the value of the statistics, and ESS values between 100 and 200 are coloured in yellow.
+
+If a lot of statistics have red or yellow coloured ESS value, we did not explore the posterior space sufficiently. This is most likely a result of the chain not running long enough. Try running the same analysis, but first load the XML configuration file into BEAUti again by pressing `File > Load` and select the `Primates.xml` file.  Within BEAUti, change the MCMC chain length parameter to 2'500'000. Change the trace and tree log file names in order for not over-writing the results of the previous analysis. You may add something like `_long` behind the name of the file, to obtain `primate-mtDNA_long.log` for the log file and `primate-mtDNA_long.trees` for trees file. Run BEAST2 again with the updated configuration and the seed of 777. This will take a bit more time. [Figure 12](#fig:tracer_better) shows the estimates from a longer run. The ESS of 200 is still not reached for the `TreeHeight` parameter (and few other parameter), but it did turn higher than the ESS obtained with the shorter chain. This means that if we allow the chain to run even longer we will most likely reach good ESS values for this parameter as well.
+
+Remember that MCMC is a stochastic algorithm, so if you set a different seed the actual numbers will not be exactly the same as those depicted in the figure.
+
+<figure>
+	<a id="fig:tracer_better"></a>
+	<img src="figures/tracer_better.png">
+	<figcaption>Figure 12: Tracer showing a summary of the BEAST2 run with MCMC chain length of 2'500'000.</figcaption>
+</figure>
+
+
+----
+
+## Analysing tree estimates
+
+Besides producing a sample of parameter estimates, BEAST2 also produces a posterior sample of phylogenetic time-trees. These need to be summarized too before any conclusions about the quality of the posterior estimate can be made.
+
+### Obtaining an estimate of the phylogenetic tree
+
+One way to summarise the trees is by using the program TreeAnnotator. This will take the set of trees and find the best supported one. It will then annotate this representative summary tree with the mean ages of all the nodes and the corresponding 95% HPD ranges. It will also calculate the posterior clade probability for each node. Such a tree is called the maximum clade credibility tree.
+
+Run the TreeAnnotator program and set the `Burnin percentage` to 1%, which will make the program ignore 1% of the trees sampled.
+
+> Run TreeAnnotator.
+> 
+> Set the `Burnin percentage` to 1.
+
+The next option, the `Posterior probability limit`, specifies a limit such that if a node is found at less than this frequency in the sample of trees (i.e. has a posterior probability less than this limit), it will not be annotated. For example, setting it to 0.5 means that only nodes seen in the majority (more than 50%) of trees will be annotated. The default value is 0, which we will leave as is, and which means that TreeAnnotator will annotate all nodes.
+
+> Leave the `Posterior probability limit` at the default value of 0.
+
+For the `Target tree type` option you can either choose a specific tree from a file or ask TreeAnnotator to find a tree in your sample. The default option which we will leave, `Maximum clade credibility tree`, finds the tree with the highest product of the posterior probability of all its nodes.
+
+> Leave the `Target tree type` at the default value of `Maximum clade credibility tree`.
+
+Next, select `Mean heights` for the `Node heights`. This sets the heights (ages) of each node in the tree to the mean height across the entire sample of trees for that clade.
+
+> Select `Mean heights` in the `Node heights` dropdown menu.
+
+Then set the `Input Tree File` to the file `.trees` file BEAST2 created as the result of the run and set the `Output File` to something like `Primates.MCC.tree`. The setup should look as shown in [Figure 13](#fig:treeannot). You can now run the program.
+
+> Set the `Input Tree File` to the `primate-mtDNA.trees` file.
+>
+> Set the `Output File` to `Primates.MCC.tree`.
+> 
+> Run the MCC tree generation by clocking the `Run` button.
+
+<figure>
+	<a id="fig:treeannot"></a>
+	<img src="figures/treeannot.png">
+	<figcaption>Figure 13: TreeAnnotator setup</figcaption>
+</figure>
+
+
+
+### Visualising the tree estimate
+
+Finally, we can visualize the tree with one of the available pieces of software, such as FigTree and DensiTree.
+
+First let us run FigTree and open the `Primates.MCC.tree` file by using `File > Open`. You can now try selecting some of the options in the control panel on the left. Try checking the `Node Bars` checkbox to get node age error bars. You will also need to expand the `Node Bars` options and select the `height_95%_HPD` in the `Display` dropdown.
+
+> Run FigTree.
+> 
+> Open the `Primates.MCC.tree` file using `File > Open`.
+> 
+> Check the `Node Bars` checkbox.
+> 
+> Expand the `Node Bars` options and select the `height_95%_HPD` in the `Display` dropdown.
+
+You can also turn on `Node Labels` and select `posterior` in the `Display` dropdown to get it to display the posterior probability for each node. You should end up with something similar to [Figure 14](#fig:figtree).
+
+> Check the `Node Labels` checkbox.
+>
+> Expand the `Node Labels` options and select the `posterior` in the `Display` dropdown.
+
+<figure>
+	<a id="fig:figtree"></a>
+	<img src="figures/figtree.png">
+	<figcaption>Figure 14: FigTree visualisation of the estimated tree.</figcaption>
+</figure>
+
+Another program we can use is called DensiTree. DensiTree does not need a summary tree (so we do not need to run TreeAnnotator prior to using DensiTree) to be able to visualise the estimates. Run DensiTree and using `File > Load` load the `.trees` file. You should now see many lines corresponding to all the individual trees samples by your MCMC chain. You can also see clearly a pattern coming out. To see the pattern more clearly, expand the `Show` options and check the `Consensus Trees` to see the consensus tree of the sample.
+
+> Run DensiTree.
+> 
+> Open the `primate-mtDNA.trees` file using `File > Load`.
+> 
+> Expand the `Show` options and check the `Consensus Trees` checkbox.
+
+In order to see the support for the topology you see, select the `Central` view mode. Now expand the `Clades` menu, check the `Show clades` checkbox and the `text` checkbox for the `Support`. The tree should look as shown in [Figure 15](#fig:densitree).
+
+> Select the `Central` view mode in the top right menu.
+>
+> Expand the `Clades` menu.
+>
+> Check the `Show clades` checkbox and the `text` checkbox for the `Support`.
+
+Now, select the `Help > View clades` in DensiTree menu. You should see a window that shows the different clades and their probabilities. In this particular run there is little uncertainty in the tree estimate with respect to clade grouping, as almost each clade has 100% support.
+
+> Select `Help > View clades` and view the different clades and their probabilities.
+
+<figure>
+	<a id="fig:densitree"></a>
+	<img src="figures/densitree.png">
+	<figcaption>Figure 15: DensiTree visualisation of the tree sample.</figcaption>
+</figure>
+
+<figure>
+	<a id="fig:densitree_clades"></a>
+	<img src="figures/densitree_clades.png">
+	<figcaption>Figure 16: DensiTree clade probability.</figcaption>
+</figure>
+
+
+----
+
+# Useful Links
+
+- [Bayesian Evolutionary Analysis with BEAST 2](http://www.beast2.org/book.html)
+- BEAST 2 website and documentation: [](http://www.beast2.org/)
+- BEAST 1 website and documentation: [](http://beast.bio.ed.ac.uk)
+- Join the BEAST user discussion: [](http://groups.google.com/group/beast-users) 
+
+<a href="http://creativecommons.org/licenses/by/4.0/"><img src="figures/ccby.pdf"></a>This tutorial was written by Jūlija Pečerska and Veronika Bošková for the [Taming the BEAST Workshop])https://www.bsse.ethz.ch/cevo/taming-the-beast.html)[Taming the BEAST Workshop] on applied phylogenetics and molecular evolution and is licensed under a [Creative Commons Attribution 4.0 International License]](http://creativecommons.org/licenses/by/4.0/). The content is based on the [Divergence Dating Tutorial with BEAST 2.0](https://github.com/CompEvol/beast2/blob/master/doc/tutorials/DivergenceDating/DivergenceDatingTutorialv2.0.3.pdf?raw=true) by Drummond, Rambaut, and Bouckaert.
 
 
 
