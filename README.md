@@ -282,6 +282,82 @@ We are now ready to create the BEAST2 XML file. To do this, select `File > Save`
 
 > Save the XML file under the name `Primates.xml` using `File > Save`.
 
+----
+
+## Running the analysis
+
+Now run BEAST2 and provide your newly created XML file as input. You can also change the `Random number seed` for the run. This number is the starting point of a pseudo-random number chain BEAST2 will use to generate the samples. As computers are unable to generate truly random numbers, we have to resort to generating determinate sequences of numbers that only look random, but will be identical when the starting seed is the same.
+
+> Run the BEAST2 program.
+>
+> Select `Primates.xml` as the `Beast XML File`.
+
+For this run we will set the `Random number seed` to 777 (or any other number you like). The BEAST2 window should look as shown in [Figure 8](#fig:beast). 
+
+> Set the `Random number seed` to 777 (or pick your favourite number).
+
+Now you can run the analysis by pressing the `Run` button at the bottom of the window. BEAST2 will run until the specified number of steps in the chain is reached. While it is running, it will print the screenlog values to a console and store the tracelog and tree log values to files located in the same folder as the configuration XML file. The screen output will look approximately as shown in [Figure 9](#fig:beast_out).
+
+> Run BEAST2 by clicking the `Run` button.
+
+The window will remain open when BEAST2 will finished. When you try to close it, you may see BEAST2 asking the question: "Do you wish to save?". Note that your log and trees files are always saved, no matter what answer you choose for this question. Thus, the question is only restricted to saving or not of the BEAST2 `screenlog` output. In order to save this output, click `Yes` and select the location on your computer, and the filename under which you wish to save this output. However, for now, it is safe to click `No` and not save the `screenlog` output.
+
+<figure>
+	<img src="figures/beast.png">
+	<figcaption>Figure 8: BEAST2 setup for the analysis.</figcaption>
+	<a id="fig:beast"></a>
+</figure>
+
+<figure>
+	<img src="figures/beast_out.png">
+	<figcaption>Figure 9: BEAST2 output for the analysis.</figcaption>
+	<a id="fig:beast_out"></a>
+</figure>
+
+
+----
+
+
+### Analysing parameter estimates
+
+Once BEAST2 has finished running, open Tracer to get an overview of BEAST2 output. When the main window has opened, choose `File > Import Trace File...` and select the file called `primate-mtDNA.log` that BEAST2 has created, or simply drag the file from the file manager window into Tracer. The Tracer window should look as shown in [Figure 10](#fig:tracer_bad).
+
+> Open Tracer.
+> 
+> Use `File > Import Trace File...` to load the `primate-mtDNA.log` file that BEAST2 has created.
+
+Tracer provides a few useful summary statistics on the results of the analysis. On the left side in the top window it provides a list of log files loaded into the program at the moment. The window below shows the list of statistics logged in each file. For each statistic it gives a list of summary values such as the mean, standard error, median, and others it can compute from the data. The summary values are displayed in the top right window and the distribution of the statistic is shown in the graphics in the bottom right window. 
+
+The log file contains traces for the posterior (this is the natural logarithm of the product of the tree likelihood and the prior density), prior, the likelihood, the tree likelihood and the continuous parameters. Selecting a trace on the left brings up the summary statistics for this trace on the right hand side. When first opened, the `posterior` trace is selected and various statistics of this trace are shown under the `Estimates` tab.
+
+For each loaded log file we can specify a `Burn-In`, which is shown in the file list table (top-left) in Tracer. The burn-in is intended to give the Markov Chain time to reach its equilibrium distribution, particularly if it has started from a bad starting point. A bad starting point may lead to over-sampling regions of the posterior that actually have very low probability under the equilibrium distribution, before the chain settles into the equilibrium distribution. Burn-in allows us to simply discard the first N samples of a chain and not use them to compute the summary statistics. Determining the right number of samples to throw out is more of an art form than a technique (as we cannot predict when the chain will reach equilibrium), so we normally simply settle for specifying first 10% of the whole chain length as the burn-in.
+
+Select the `TreeHeight` statistic in the left hand list to look at the tree height estimated jointly for all of the partitions in the alignment. Tracer will plot a (marginal posterior) histogram for the selected statistic and also give you summary statistics such as the mean and median. The 95% HPD stands for *highest posterior density interval* and represents the most compact interval on the selected statistic that contains 95% of the posterior probability. It can be loosely thought of as a Bayesian analogue to a confidence interval. The `TreeHeight` statistic gives the marginal posterior distribution of the age of the root of the entire tree.
+
+> Select the `TreeHeight` statistic in the bottom left hand list in Tracer and view the different summary statistics on the right.
+
+You can also compare estimates of different parameters in Tracer. Once a trace file is loaded into the program you can, for example, compare estimates of the different mutation rates corresponding to different positions in the alignment. Select all four mutation rate traces and then select the `Marginal Prob Distribution` tab on the right. You will be able to see all four distributions in one plot, similar to what is shown in [Figure 11](#fig:tracer_comparison).
+
+> Select all four mutation rates by clicking the first mutation rate (`mutationRate.noncoding`), then holding `Shift` and clicking the last mutation rate (`mutationRate.3rdpos`).
+>
+> Select the `Marginal Prob Distribution` tab on the right to view the four distributions together.
+
+
+<figure>
+	<img src="figures/tracer_bad.png">
+	<figcaption>Figure 10: Tracer showing a summary of the BEAST2 run of primate data with MCMC chain length of 1'000'000.</figcaption>
+	<a id="fig:tracer_bad"></a>
+</figure>
+
+<figure>
+	<img src="figures/tracer_comparison.png">
+	<figcaption>Figure 11: Tracer showing the four marginal probability distributions of the mutation rates in each partition of the alignment.</figcaption>
+	<a id="fig:tracer_comparison"></a>
+</figure>
+
+
+
+
 
 
 
