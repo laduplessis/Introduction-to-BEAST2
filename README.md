@@ -83,9 +83,8 @@ Once you have done that, the data should appear in the BEAUti window which shoul
 
 ![](figures/data.png) \\
 
-||
-|:--:|
 |_Data imported into BEAUti._|
+|:--:|
 
 <figure>
 	<img src="figures/data.png" alt="">
