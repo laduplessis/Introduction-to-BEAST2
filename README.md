@@ -85,7 +85,7 @@ Once you have done that, the data should appear in the BEAUti window which shoul
 _Data imported into BEAUti._  
 
 <figure>
-	<img src="figures/Introduction_to_BEAST/data.png" alt="">
+	<img src="figures/data.png" alt="">
 	<figcaption>Data imported into BEAUti.</figcaption>
 	<a id="fig:data"/>
 </figure>
