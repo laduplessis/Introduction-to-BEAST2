@@ -77,7 +77,7 @@ To give BEAST2 access to the data, one has to add the alignment to the configura
 Once you have done that, the data should appear in the BEAUti window which should look as shown in [Figure 1](#fig:data).
 
 <figure>
-	<a id="fig:data"/>
+	<a id="fig:data"></a>
 	<img src="figures/data.png" alt="">
 	<figcaption>Figure 1: Data imported into BEAUti.</figcaption>
 </figure>
@@ -105,7 +105,7 @@ You will see that the `Clock Model` and the `Tree` columns in the table both cha
 <figure>
 	<img src="figures/link.png">
 	<figcaption>Figure 2: Linked models.</figcaption>
-	<a id="fig:link"/>
+	<a id="fig:link"></a>
 </figure>
 
 
