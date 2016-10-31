@@ -1,3 +1,8 @@
+---
+author: Jūlija Pečerska, Veronika Bošková
+---
+
+
 # Background
 
 Before diving into performing complex analyses with the BEAST2 one needs to understand the basic workflow and concepts. While BEAST2 tries to be as user-friendly as possible, the amount of possibilities can be overwhelming.
